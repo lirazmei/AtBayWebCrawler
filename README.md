@@ -1,2 +1,104 @@
-# AtBayWebCrawler
-Web Crawler System
+# AtBay Web Crawler Service
+
+ design and implement a web crawler system in python
+
+* Ingest – The ingestion system must be able to receive multiple requests to initiate web
+page crawls in parallel under load. Per request, the system must acknowledge that the
+request has been received and provide the caller with a unique crawl-id assigned to
+each web page crawl.
+* Process – The HTML of each web page should be extracted and stored in an accessible
+data store. The crawler system does not work under load but processes requests at its
+own pace individually (one by one).
+* Status – an endpoint where a caller can check the status of a crawl using the unique
+crawl ID it received from the ingestion system.
+
+
+
+The crawl requests should indicate the targets in which to receive the notification. zero
+to multiple targets for a single crawl should be supported.
+## Service Requirements
+
+* It should consume the output of the generator and gather the following status:
+The available statuses are:
+  * Accepted – the request for a new crawl has been received and is pending
+  processing
+  * Running – the crawl is currently running
+  * Error – an error occurred during the crawl (e.g. bad web page)
+  * Complete – the crawl was completed successfully
+  * Not-Found – the provided crawl-id could not be found
+
+* If the status is completed we expect to get the location of the html file.
+Status checks should not create additional loads on any other system.
+Notifications – Once a crawl has been completed, the system should be able to notify
+the client through any of the following channels:
+1. Email 
+   2. Email address
+2. Slack Message to User 
+   3. User name
+3. Slack Message to Channel 
+   4. Channel Name
+
+
+## Prerequisites
+
+⁠ ⁠*Python* - This project based on Pyhton, current version is 3.9
+ 
+* Design your solution as you would design for production purposes.
+* Please use Python and specify the dependencies.
+* You may use external tools.
+* If you assume using an external system (DB, Cache, etc.), you may create a mock
+in code wrapping the calls to that system.
+* The code could be provided within the GitHub repo, or a zip file, for your choice.
+
+## Setup
+
+* Create and activate Python virtualenv
+
+```bash
+cd /path/to/your/Lynx_Service
+virtualenv --python=python3.9 venv
+source ./venv/bin/activate
+```
+
+* Install required modules in virtualenv
+
+```bash
+pip install -r requirements.txt
+```
+
+* Run the project
+
+```bash
+venv/bin/python app/main.py 
+```
+
+If you want to debug the project add "debug" arg to command line
+
+```bash
+venv/bin/python main.py debug
+```
+
+## HTTP Requests (GUI & curl )
+
+To see the API that we have you can go to the following url:
+<br>
+http://127.0.0.1:5000/apidocs/#
+</br>
+
+Or run the following curl requests in terminal:
+
+* curl -X GET "http://127.0.0.1:5000/events/countByEventType" -H "accept: application/json"
+* curl -X GET "http://127.0.0.1:5000/events/countWords" -H "accept: application/json"
+
+## Additional Notes Regarding My Task
+
+In the instruction the following dots are written:
+
+* The design of your solution should decouple the reads from the writes. Try to think about
+  what it means when scaling such a service.
+
+* Add a README file with instructions on running the project. In the README file, please
+  note 3 things you would improve in your submission.
+
+I will answer the notes in the following section -
+
