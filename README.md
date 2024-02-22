@@ -1,13 +1,13 @@
-# AtBay Web Crawler Service
+# AtBay Web Crawler System
 
- design and implement a web crawler system in python
+Implementation of a web crawler system in python
 
 * Ingest – The ingestion system must be able to receive multiple requests to initiate web
 page crawls in parallel under load. Per request, the system must acknowledge that the
 request has been received and provide the caller with a unique crawl-id assigned to
 each web page crawl.
 * Process – The HTML of each web page should be extracted and stored in an accessible
-data store. The crawler system does not work under load but processes requests at its
+data store. The crawler system does not work under load but processes requests at its
 own pace individually (one by one).
 * Status – an endpoint where a caller can check the status of a crawl using the unique
 crawl ID it received from the ingestion system.
@@ -16,7 +16,7 @@ crawl ID it received from the ingestion system.
 
 The crawl requests should indicate the targets in which to receive the notification. zero
 to multiple targets for a single crawl should be supported.
-## Service Requirements
+## System Requirements
 
 * It should consume the output of the generator and gather the following status:
 The available statuses are:
@@ -55,7 +55,7 @@ in code wrapping the calls to that system.
 * Create and activate Python virtualenv
 
 ```bash
-cd /path/to/your/Lynx_Service
+cd /path/to/your/AtBayWebCrawler
 virtualenv --python=python3.9 venv
 source ./venv/bin/activate
 ```
@@ -87,18 +87,10 @@ http://127.0.0.1:5000/apidocs/#
 
 Or run the following curl requests in terminal:
 
-* curl -X GET "http://127.0.0.1:5000/events/countByEventType" -H "accept: application/json"
-* curl -X GET "http://127.0.0.1:5000/events/countWords" -H "accept: application/json"
+* curl -X POST "" -H "accept: application/json"
+* curl -X POST "" -H "accept: application/json"
 
 ## Additional Notes Regarding My Task
 
-In the instruction the following dots are written:
 
-* The design of your solution should decouple the reads from the writes. Try to think about
-  what it means when scaling such a service.
-
-* Add a README file with instructions on running the project. In the README file, please
-  note 3 things you would improve in your submission.
-
-I will answer the notes in the following section -
 
