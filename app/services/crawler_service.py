@@ -1,12 +1,28 @@
 import datetime
 import hashlib
-from concurrent.futures import ThreadPoolExecutor
 
-from app.models.file_system_dao import AbstractDao
 import logging
 import requests
 
-status_option = {1: 'Accepeted', 2: 'Runnning', 3: 'Error', 4: 'Complete', 5: 'Not-Found'}
+from concurrent.futures import ThreadPoolExecutor
+
+from app.conf import USER_EMAIL, SLACK_USER, SLACK_CHANNEL, SLACK_API_TOKEN
+from app.utils import send_email, send_slack_message
+from app.models.file_system_dao import AbstractDao
+
+
+def process_complete_notify_user(crawl_id, url):
+    message = f"Crawl completed successfully for url {url}! - relevant id {crawl_id} "
+
+    email_subject = f"Crawl {crawl_id} Completed"
+    email_message = f"Hello user,\n\n{message}\n\nRegards,\nYour Web Crawler"
+    send_email(USER_EMAIL, email_subject, email_message)
+
+    slack_user_message = f"Hello {SLACK_USER}, {message}"
+    send_slack_message(SLACK_API_TOKEN, SLACK_USER, slack_user_message)
+
+    slack_channel_message = f"{message}"
+    send_slack_message(SLACK_API_TOKEN, SLACK_CHANNEL, slack_channel_message)
 
 
 class CrawlerService(object):
@@ -25,6 +41,7 @@ class CrawlerService(object):
                 html_content = response.text
                 self.dao.insert_data(job_id, html_content)
                 self.dao.update_status(job_id, 'Complete')
+                process_complete_notify_user(job_id, url)
             else:
                 self.dao.update_status(job_id, 'Error')
         except Exception as e:
@@ -34,7 +51,7 @@ class CrawlerService(object):
         self.logger.debug("Enter to get_job_id in service")
         md5_hash = hashlib.md5()
         current_time = datetime.datetime.now()
-        md5_hash.update(f'{url}{datetime.datetime.timestamp(current_time)*1000}'.encode('utf-8'))
+        md5_hash.update(f'{url}{datetime.datetime.timestamp(current_time) * 1000}'.encode('utf-8'))
         hashed_url = md5_hash.hexdigest()
         self.logger.debug(f"Hased url {hashed_url} to get_job_id in service")
         return hashed_url
@@ -49,6 +66,5 @@ class CrawlerService(object):
         self.dao.create_job(job_id, url)
         self.dao.update_status(job_id, 'Accepted')
         self.logger.debug("Finish job creation in service")
-        # with self.executor:
         self.executor.submit(self._run_crawler, job_id, url)
         return job_id

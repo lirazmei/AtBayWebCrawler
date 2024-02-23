@@ -3,7 +3,7 @@ import logging
 from flasgger import swag_from
 from app.controllers.response_builder import ok, server_error
 from os import path
-from flask import jsonify, request
+from flask import request
 
 logger = logging.getLogger(__name__)
 
