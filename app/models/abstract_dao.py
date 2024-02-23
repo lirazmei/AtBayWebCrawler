@@ -9,7 +9,7 @@ class AbstractDao(ABC):
         self.logger = logging.getLogger()
 
     @abstractmethod
-    def get_status(self, job_id: str):
+    def get_metadata(self, job_id: str):
         pass
 
     @abstractmethod

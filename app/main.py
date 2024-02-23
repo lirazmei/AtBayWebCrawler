@@ -46,6 +46,6 @@ if __name__ == '__main__':
     init_logger()
     swagger = Swagger(app)
     fs_dao = FileSystemDao()
-    crawler_service = CrawlerService(fs_dao, max_workers=1)
+    crawler_service = CrawlerService(fs_dao, max_workers=10)
     create_routes(app, crawler_controller=CrawlerController(crawler_service))
     app.run(debug=IS_DEBUG, port=8000)

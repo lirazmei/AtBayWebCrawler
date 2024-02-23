@@ -24,12 +24,12 @@ class CrawlerController(object):
             return server_error({"error": str(e)})
 
     @swag_from(path.join('..', 'swaggers', 'get_crawl_url.yml'))
-    def get_job_status(self, job_id):
+    def get_job_status(self, crawl_id):
         logger.debug("Enter to get_job_status in controller")
         try:
-            job_status = self.crawler_service.get_status(job_id)
-            job_status_summary = {'job_id': job_id, 'job_status': job_status}
-            return ok(job_status_summary)
+            crawl_data = self.crawler_service.get_status(crawl_id)
+            crawl_status_summary = crawl_data
+            return ok(crawl_status_summary)
         except Exception as e:
             logger.error(str(e), exc_info=True)
             return server_error({"error": str(e)})
