@@ -11,23 +11,24 @@ data store. The crawler system does not work under load but processes requests a
 own pace individually (one by one).
 * Status – an endpoint where a caller can check the status of a crawl using the unique
 crawl ID it received from the ingestion system. 
-* The crawl requests should indicate the targets in which to receive the notification. zero
-to multiple targets for a single crawl should be supported.
+The available statuses are:
+```
+  Accepted – the request for a new crawl has been received and is pending
+  processing
+  Running – the crawl is currently running
+  Error – an error occurred during the crawl (e.g. bad web page)
+  Complete – the crawl was completed successfully
+  Not-Found – the provided crawl-id could not be found
+```
+
 ## System Requirements
 
-* It should consume the output of the generator.
-
-The available statuses are:
-  * Accepted – the request for a new crawl has been received and is pending
-  processing
-  * Running – the crawl is currently running
-  * Error – an error occurred during the crawl (e.g. bad web page)
-  * Complete – the crawl was completed successfully
-  * Not-Found – the provided crawl-id could not be found
+* The crawl requests should indicate the targets in which to receive the notification. zero
+to multiple targets for a single crawl should be supported.
 
 * If the status is completed we expect to get the location of the html file.
 Status checks should not create additional loads on any other system.
-Notifications – Once a crawl has been completed, the system should be able to notify
+* Notifications – Once a crawl has been completed, the system should be able to notify
 the client through any of the following channels:
 1. Email - Email address
 2. Slack Message to User - User name
