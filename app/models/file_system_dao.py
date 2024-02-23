@@ -9,6 +9,7 @@ logger = logging.getLogger(__name__)
 
 class FileSystemDao(AbstractDao):
     def get_metadata(self, job_id: str):
+        logger.debug("Enter to get_metadata in FileSystemDao")
         try:
             with open(METADATA_FILEPATH.format(job_id=job_id), 'r') as json_file:
                 data_read = json.load(json_file)
@@ -18,6 +19,7 @@ class FileSystemDao(AbstractDao):
         return {'job_id': job_id, 'status': STATUS_OPTIONS[5]}
 
     def update_status(self, job_id: str, status: STATUS_OPTIONS):
+        logger.debug("Enter to update_status in FileSystemDao")
         with open(METADATA_FILEPATH.format(job_id=job_id), 'r') as json_file:
             data = json.load(json_file)
         data["status"] = status
@@ -25,6 +27,7 @@ class FileSystemDao(AbstractDao):
             json.dump(data, json_file)
 
     def insert_data(self, job_id: str, data):
+        logger.debug("Enter to insert_data in FileSystemDao")
         data_path = DATA_PATH.format(job_id=job_id)
         html_file_path = os.path.realpath(os.path.join(data_path, 'content.html'))
         with open(html_file_path, 'w', encoding='utf-8') as f:
@@ -36,6 +39,7 @@ class FileSystemDao(AbstractDao):
             json.dump(data, json_file)
 
     def create_job(self, job_id, url):
+        logger.debug("Enter to create_job in FileSystemDao")
         try:
             data_path = DATA_PATH.format(job_id=job_id)
             if not os.path.exists(data_path):
