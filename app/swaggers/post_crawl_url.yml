@@ -1,0 +1,21 @@
+Post url to web crawler
+---
+summary: post url to system,
+description: Url data entered to the system, System will store web html in dao.
+consumes:
+  application/json
+parameters:
+  - name: body
+    in: body
+    description: Json with a url path that need to be stored in the system
+    required: true
+responses:
+  200:
+    description: Url entered to queue - Successful operation
+    examples:
+      application/json:
+        job_id: '123ccg'
+  500:
+    description: A server error occurred
+    schema:
+      $ref: "#/definitions/ErrorResponse"

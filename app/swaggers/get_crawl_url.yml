@@ -1,0 +1,26 @@
+Get crawl id status
+---
+summary: Get status of specific crawl_id
+description: Fetch the status of crawl_id
+parameters:
+  - name: crawl_id
+    in: path
+    description: The id that need to to be fetched for status induction
+    required: true
+    type: string
+responses:
+  200:
+    description:  Successful operation
+    examples:
+      application/json:
+        123ccg: 'Running'
+  500:
+    description: A server error occurred
+    schema:
+      $ref: "#/definitions/ErrorResponse"
+definitions:
+  ErrorResponse:
+    type: object
+    properties:
+      error:
+        type: string
