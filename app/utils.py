@@ -4,7 +4,8 @@ logging = logging.getLogger(__name__)
 
 
 def send_email(to_email, subject, message):
-    logging.info(f'Send email subject - {subject} to user {to_email}, {message} ')
+    logging.info(f'Send email {subject} to user {to_email}, {message} ')
+    logging.info(f'Email message content: \n, {message} ')
     # dummy option to send real email
     # msg = MIMEMultipart()
     # msg['From'] = SOURCE_EMAIL

@@ -1,6 +1,5 @@
 from abc import ABC, abstractmethod
 import logging
-status_option = {1: 'Accepeted', 2: 'Runnning', 3: 'Error', 4: 'Complete', 5: 'Not-Found'}
 
 
 class AbstractDao(ABC):
@@ -13,7 +12,7 @@ class AbstractDao(ABC):
         pass
 
     @abstractmethod
-    def update_status(self, job_id: str, status: status_option):
+    def update_status(self, job_id: str, status: str):
         pass
 
     @abstractmethod

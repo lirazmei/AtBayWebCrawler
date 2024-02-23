@@ -87,8 +87,13 @@ http://127.0.0.1:5000/apidocs/#
 
 Or run the following curl requests in terminal:
 
-* curl -X POST "" -H "accept: application/json"
-* curl -X POST "" -H "accept: application/json"
+* curl -X POST "http://127.0.0.1:8000/crawl" -H "accept: application/json" -H "Content-Type: application/json" -d "{\"url\": \"<<WANTED URL TO CRAWL>>\"}"
+For example:
+* curl -X POST "http://127.0.0.1:8000/crawl" -H "accept: application/json" -H "Content-Type: application/json" -d "{\"url\": \"https://ksp.co.il/web/\"}"
+
+* curl -X GET "http://127.0.0.1:8000/crawl/<<crawl_id>>" -H "accept: application/json"
+For example:
+* curl -X GET "http://127.0.0.1:8000/crawl/4e078e11c2716b7e7720b718c42286d8" -H "accept: application/json"
 
 ## Additional Notes Regarding My Task
 

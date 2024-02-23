@@ -3,8 +3,7 @@ import logging
 from .abstract_dao import AbstractDao
 import json
 import os
-
-STATUS_OPTIONS = {1: 'Accepted', 2: 'Running', 3: 'Error', 4: 'Complete', 5: 'Not-Found'}
+from app.conf import STATUS_OPTIONS
 
 DATA_PATH = os.path.join('..', 'data', '{job_id}')
 METADATA_FILEPATH = os.path.join(DATA_PATH, 'metadata.json')
@@ -18,7 +17,7 @@ class FileSystemDao(AbstractDao):
             return data_read
         except Exception as e:
             self.logger.error(f'There is no {job_id} in the system. Error is {str(e)} ')
-        return {'job_id': job_id, 'status': 'Not-Found'}
+        return {'job_id': job_id, 'status': STATUS_OPTIONS[5]}
 
     def update_status(self, job_id: str, status: STATUS_OPTIONS):
         with open(METADATA_FILEPATH.format(job_id=job_id), 'r') as json_file:

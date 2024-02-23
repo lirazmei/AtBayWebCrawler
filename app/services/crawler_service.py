@@ -1,3 +1,4 @@
+import time
 import datetime
 import hashlib
 
@@ -9,6 +10,7 @@ from concurrent.futures import ThreadPoolExecutor
 from app.conf import USER_EMAIL, SLACK_USER, SLACK_CHANNEL, SLACK_API_TOKEN
 from app.utils import send_email, send_slack_message
 from app.models.file_system_dao import AbstractDao
+from app.conf import STATUS_OPTIONS
 
 
 def process_complete_notify_user(crawl_id, url):
@@ -35,15 +37,17 @@ class CrawlerService(object):
     def _run_crawler(self, job_id, url):
         self.logger.debug("Enter to _run_crawler in service")
         try:
-            self.dao.update_status(job_id, 'Running')
+            time.sleep(60)
+            self.dao.update_status(job_id, STATUS_OPTIONS[2])
+            time.sleep(60)
             response = requests.get(url)
             if response.status_code == 200:
                 html_content = response.text
                 self.dao.insert_data(job_id, html_content)
-                self.dao.update_status(job_id, 'Complete')
+                self.dao.update_status(job_id, STATUS_OPTIONS[4])
                 process_complete_notify_user(job_id, url)
             else:
-                self.dao.update_status(job_id, 'Error')
+                self.dao.update_status(job_id, STATUS_OPTIONS[3])
         except Exception as e:
             self.logger.error(str(e), exc_info=True)
 
@@ -53,7 +57,7 @@ class CrawlerService(object):
         current_time = datetime.datetime.now()
         md5_hash.update(f'{url}{datetime.datetime.timestamp(current_time) * 1000}'.encode('utf-8'))
         hashed_url = md5_hash.hexdigest()
-        self.logger.debug(f"Hased url {hashed_url} to get_job_id in service")
+        self.logger.debug(f"Hashed url {hashed_url} to get_job_id in service")
         return hashed_url
 
     def get_status(self, job_id):
@@ -64,7 +68,7 @@ class CrawlerService(object):
         self.logger.debug("Enter to handle_url in service")
         job_id = self.get_job_id(url)
         self.dao.create_job(job_id, url)
-        self.dao.update_status(job_id, 'Accepted')
+        self.dao.update_status(job_id, STATUS_OPTIONS[1])
         self.logger.debug("Finish job creation in service")
         self.executor.submit(self._run_crawler, job_id, url)
         return job_id
