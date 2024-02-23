@@ -78,6 +78,7 @@ If you want to debug the project add "debug" arg to command line
 venv/bin/python main.py debug
 ```
 
+
 ## HTTP Requests (GUI & curl )
 
 To see the API that we have you can go to the following url:
@@ -87,15 +88,14 @@ http://127.0.0.1:5000/apidocs/#
 
 Or run the following curl requests in terminal:
 
-* curl -X POST "http://127.0.0.1:8000/crawl" -H "accept: application/json" -H "Content-Type: application/json" -d "{\"url\": \"<<WANTED URL TO CRAWL>>\"}"
-For example:
-* curl -X POST "http://127.0.0.1:8000/crawl" -H "accept: application/json" -H "Content-Type: application/json" -d "{\"url\": \"https://ksp.co.il/web/\"}"
+1. curl -X POST "http://127.0.0.1:8000/crawl" -H "accept: application/json" -H "Content-Type: application/json" -d "{\"url\": \"<<WANTED URL TO CRAWL>>\"}"
+   2.For example:
+``` curl -X POST "http://127.0.0.1:8000/crawl" -H "accept: application/json" -H "Content-Type: application/json" -d "{\"url\": \"https://ksp.co.il/web/\"}"```
+2. curl -X GET "http://127.0.0.1:8000/crawl/<<crawl_id>>" -H "accept: application/json"
+For example: 
+``` curl -X GET "http://127.0.0.1:8000/crawl/4e078e11c2716b7e7720b718c42286d8" -H "accept: application/json" ```
 
-* curl -X GET "http://127.0.0.1:8000/crawl/<<crawl_id>>" -H "accept: application/json"
-For example:
-* curl -X GET "http://127.0.0.1:8000/crawl/4e078e11c2716b7e7720b718c42286d8" -H "accept: application/json"
 
-## Additional Notes Regarding My Task
 
 
 
