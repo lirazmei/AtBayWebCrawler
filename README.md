@@ -13,8 +13,7 @@ own pace individually (one by one).
 crawl ID it received from the ingestion system. 
 The available statuses are:
 ```
-  Accepted – the request for a new crawl has been received and is pending
-  processing
+  Accepted – the request for a new crawl has been received and is pending processing
   Running – the crawl is currently running
   Error – an error occurred during the crawl (e.g. bad web page)
   Complete – the crawl was completed successfully
@@ -47,6 +46,11 @@ in code wrapping the calls to that system.
 * The code could be provided within the GitHub repo, or a zip file, for your choice.
 
 ## Setup
+
+* clone to the project
+```bash
+gh repo clone lirazmei/AtBayWebCrawler
+```
 
 * Create and activate Python virtualenv
 

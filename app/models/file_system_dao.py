@@ -1,12 +1,10 @@
-import logging
-
-from .abstract_dao import AbstractDao
 import json
+import logging
 import os
-from app.conf import STATUS_OPTIONS
+from .abstract_dao import AbstractDao
+from app.conf import STATUS_OPTIONS, DATA_PATH, METADATA_FILEPATH
 
-DATA_PATH = os.path.join('..', 'data', '{job_id}')
-METADATA_FILEPATH = os.path.join(DATA_PATH, 'metadata.json')
+logger = logging.getLogger(__name__)
 
 
 class FileSystemDao(AbstractDao):

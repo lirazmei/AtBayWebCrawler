@@ -1,3 +1,5 @@
+import os
+
 USER_EMAIL = "user@example.com"
 SLACK_USER = "@username"
 SLACK_CHANNEL = "#channel_name"
@@ -8,3 +10,5 @@ SMTP_PORT = 587
 SMTP_USERNAME = "your_email@gmail.com"
 SMTP_PASSWORD = "your_email_password"
 STATUS_OPTIONS = {1: 'Accepted', 2: 'Runnning', 3: 'Error', 4: 'Complete', 5: 'Not-Found'}
+DATA_PATH = os.path.join('..', 'data', '{job_id}')
+METADATA_FILEPATH = os.path.join(DATA_PATH, 'metadata.json')
