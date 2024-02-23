@@ -1,4 +1,3 @@
-import time
 import datetime
 import hashlib
 
@@ -37,9 +36,7 @@ class CrawlerService(object):
     def _run_crawler(self, job_id, url):
         self.logger.debug("Enter to _run_crawler in service")
         try:
-            time.sleep(60)
             self.dao.update_status(job_id, STATUS_OPTIONS[2])
-            time.sleep(60)
             response = requests.get(url)
             if response.status_code == 200:
                 html_content = response.text
