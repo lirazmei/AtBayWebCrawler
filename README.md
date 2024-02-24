@@ -71,13 +71,13 @@ pip install -r requirements.txt
 * Run the project
 
 ```bash
-venv/bin/python app/main.py 
+.venv/bin/python app/main.py 
 ```
 
 If you want to debug the project add "debug" arg to command line
 
 ```bash
-venv/bin/python main.py debug
+.venv/bin/python main.py debug
 ```
 
 ## HTTP Requests (GUI & curl )
