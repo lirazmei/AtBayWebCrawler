@@ -1,21 +1,54 @@
 Post url to web crawler
 ---
-summary: post url to system,
-description: Url data entered to the system, System will store web html in dao.
+summary: Post URL to system
+description: Url data is entered into the system. The system will store the web HTML in the data store.
 consumes:
-  application/json
+  - application/json
 parameters:
-  - name: body
-    in: body
-    description: Json with a url path that need to be stored in the system
+  - in: requestBody
     required: true
-responses:
-  200:
-    description: Url entered to queue - Successful operation
-    examples:
+    content:
       application/json:
-        job_id: '123ccg'
-  500:
+        schema:
+          type: object
+          properties:
+            url:
+              type: string
+              example: "www.ksp.co.il/web"
+            communication_details:
+              type: object
+              properties:
+                email_address:
+                  type: string
+                  example: "example@gmail.com"
+                user_name:
+                  type: string
+                  example: "example"
+                channel_name:
+                  type: string
+                  example: "example channel"
+          required:
+            - url
+responses:
+  '200':
+    description: Url entered into the queue - Successful operation
+    content:
+      application/json:
+        example:
+          job_id: '123ccg'
+  '500':
     description: A server error occurred
-    schema:
-      $ref: "#/definitions/ErrorResponse"
+    content:
+      application/json:
+        schema:
+          $ref: "#/components/schemas/ErrorResponse"
+
+components:
+  schemas:
+    ErrorResponse:
+      type: object
+      properties:
+        error:
+          type: string
+      example:
+        error: "Internal Server Error"

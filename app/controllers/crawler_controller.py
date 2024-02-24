@@ -18,7 +18,8 @@ class CrawlerController(object):
         data = request.get_json(silent=True)
         try:
             url = data.get('url')
-            crawl_id = self.crawler_service.handle_url(url)
+            communication_details = data.get('communication_details', {})
+            crawl_id = self.crawler_service.handle_url(url, communication_details)
             return ok({"crawl_id": crawl_id})
         except Exception as e:
             return server_error({"error": str(e)})

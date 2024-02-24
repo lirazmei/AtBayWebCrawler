@@ -1,8 +1,5 @@
 import os
 
-USER_EMAIL = "user@example.com"
-SLACK_USER = "@username"
-SLACK_CHANNEL = "#channel_name"
 SLACK_API_TOKEN = "MOCK_TOKEN"
 SOURCE_EMAIL = "your_email@gmail.com"
 SMTP_SERVER = "smtp.gmail.com"
