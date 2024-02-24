@@ -90,7 +90,7 @@ http://127.0.0.1:8000/apidocs/
 Or run the following curl requests in terminal:
 
 1. curl -X POST "http://127.0.0.1:8000/crawl" -H "accept: application/json" -H "Content-Type: application/json" -d "
-   {\"url\": \"<<WANTED URL TO CRAWL>>\"}"
+   "{\"url\": \"<<WANTED URL TO CRAWL>>\", \"communication_details\": { \"channel_name\": \"<relevant slack channel>\", \"email_address\": \"<relevant email>\", \"user_name\": \"<relevant username>\" }}
     2. For example:
        ``` curl -X POST "http://127.0.0.1:8000/crawl" -H "accept: application/json" -H "Content-Type: application/json" -d "{ \"communication_details\": { \"channel_name\": \"example_channel\", \"email_address\": \"example@gmail.com\", \"user_name\": \"example_name\" }, \"url\": \"https://ksp.co.il/web/\"}"```
 2. curl -X GET "http://127.0.0.1:8000/crawl/<<crawl_id>>" -H "accept: application/json"
