@@ -84,7 +84,7 @@ venv/bin/python main.py debug
 
 To see the API that we have you can go to the following url:
 <br>
-http://127.0.0.1:5000/apidocs/#
+http://127.0.0.1:8000/apidocs/
 </br>
 
 Or run the following curl requests in terminal:
