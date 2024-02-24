@@ -4,8 +4,9 @@ logging = logging.getLogger(__name__)
 
 
 def send_email(to_email, subject, message):
-    logging.info(f'Send email {subject} to user {to_email}, {message} ')
-    logging.info(f'Email message content: \n, {message} ')
+    logging.info(f'################# EMAIL ################# ')
+    logging.info(f'Send email {subject} to user {to_email}')
+    logging.info(f'Email message content: \n {message} ')
     # dummy option to send real email
     # msg = MIMEMultipart()
     # msg['From'] = SOURCE_EMAIL
@@ -20,6 +21,7 @@ def send_email(to_email, subject, message):
 
 
 def send_slack_message(api_token, channel, message):
+    logging.info(f'################# SLACK ################# ')
     logging.info(f'Send slack message {message} , to channel {channel} - api_token {api_token} ')
     # dummy option to send real message to slack
     # client = WebClient(token=api_token)
