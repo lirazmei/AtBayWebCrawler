@@ -1,37 +1,18 @@
 Post url to web crawler
 ---
 summary: Post URL to system
-description: Url data is entered into the system. The system will store the web HTML in the data store.
+description: URL data is entered into the system. The system will store the web HTML in the data store.
 consumes:
   - application/json
 parameters:
-  - in: requestBody
+  - in: body
+    name: url
     required: true
-    content:
-      application/json:
-        schema:
-          type: object
-          properties:
-            url:
-              type: string
-              example: "www.ksp.co.il/web"
-            communication_details:
-              type: object
-              properties:
-                email_address:
-                  type: string
-                  example: "example@gmail.com"
-                user_name:
-                  type: string
-                  example: "example"
-                channel_name:
-                  type: string
-                  example: "example channel"
-          required:
-            - url
+    schema:
+      $ref: '#/definitions/WebCrawl'
 responses:
   '200':
-    description: Url entered into the queue - Successful operation
+    description: URL insert into the queue - Successful operation
     content:
       application/json:
         example:
@@ -41,14 +22,35 @@ responses:
     content:
       application/json:
         schema:
-          $ref: "#/components/schemas/ErrorResponse"
+           $ref: '#/definitions/ErrorResponse'
+definitions:
+  ErrorResponse:
+    type: object
+    properties:
+      error:
+        type: string
+    example:
+      error: "Internal Server Error"
+  communication_details:
+    type: object
+    properties:
+      email_address:
+        type: string
+        example: "example@gmail.com"
+      user_name:
+        type: string
+        example: "example_name"
+      channel_name:
+        type: string
+        example: "example_channel"
+  WebCrawl:
+    required:
+      - url
+    type: object
+    properties:
+      url:
+        type: string
+        example: "https://ksp.co.il/web/"
+      communication_details:
+        $ref: '#/definitions/communication_details'
 
-components:
-  schemas:
-    ErrorResponse:
-      type: object
-      properties:
-        error:
-          type: string
-      example:
-        error: "Internal Server Error"

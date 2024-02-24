@@ -6,7 +6,7 @@ import requests
 
 from concurrent.futures import ThreadPoolExecutor
 
-from app.conf import USER_EMAIL, SLACK_USER, SLACK_CHANNEL, SLACK_API_TOKEN
+from app.conf import SLACK_API_TOKEN
 from app.utils import send_email, send_slack_message
 from app.models.file_system_dao import AbstractDao
 from app.conf import STATUS_OPTIONS
@@ -23,19 +23,24 @@ class CrawlerService(object):
         self.logger.debug("Enter to process_complete_notify_user in service")
         message = f"Crawl completed successfully for url {url}! - relevant id {crawl_id} "
 
-        if communication_details['email address']:
+        if 'email_address' in communication_details.keys():
+            email = communication_details['email_address']
             email_subject = f"Crawl {crawl_id} Completed"
             email_message = f"Hello user,\n\n{message}\n\nRegards,\nYour Web Crawler"
-            send_email(communication_details['Email address'], email_subject, email_message)
-            self.logger.debug(f"send email to {communication_details['email address']} on crawl {crawl_id}")
-        if communication_details['user name']:
-            slack_user_message = f"Hello {SLACK_USER}, {message}"
-            send_slack_message(SLACK_API_TOKEN, communication_details['user name'], slack_user_message)
+            send_email(email, email_subject, email_message)
+            self.logger.debug(f"sent email to {email} on crawl {crawl_id}")
+        if 'user_name' in communication_details.keys():
+            slack_user = communication_details['user_name']
+            slack_user_message = f"Hello {slack_user}, {message}"
+            send_slack_message(SLACK_API_TOKEN, slack_user, slack_user_message)
             self.logger.debug(
-                f"send notification to slack user {communication_details['user name']} on crawl {crawl_id}")
-        if communication_details['channel name']:
+                f"sent notification to slack user {slack_user} on crawl {crawl_id}")
+        if 'channel_name' in communication_details.keys():
+            slack_channel = communication_details['channel_name']
             slack_channel_message = f"{message}"
-            send_slack_message(SLACK_API_TOKEN, communication_details['channel name'], slack_channel_message)
+            send_slack_message(SLACK_API_TOKEN, slack_channel, slack_channel_message)
+            self.logger.debug(
+                f"sent notification to slack channel {slack_channel} on crawl {crawl_id}")
 
     def _run_crawler(self, job_id, url, communication_details):
         self.logger.debug("Enter to _run_crawler in service")
@@ -66,7 +71,7 @@ class CrawlerService(object):
         self.logger.debug("Enter to get_status in service")
         return self.dao.get_metadata(job_id)
 
-    def handle_url(self, url, notify_user, communication_details):
+    def handle_url(self, url, communication_details):
         self.logger.debug("Enter to handle_url in service")
         job_id = self.get_job_id(url)
         self.dao.create_job(job_id, url)
