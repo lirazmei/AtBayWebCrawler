@@ -5,13 +5,15 @@ import logging
 from flasgger import Swagger, swag_from
 from flask import Flask
 
-from app.routes import create_routes
-from app.controllers.response_builder import ok
-from app.models.file_system_dao import FileSystemDao
-from app.controllers.crawler_controller import CrawlerController
-from app.services.crawler_service import CrawlerService
+from routes import create_routes
+from controllers.response_builder import ok
+from models.file_system_dao import FileSystemDao
+from controllers.crawler_controller import CrawlerController
+from services.crawler_service import CrawlerService
 
 app = Flask(__name__)
+
+sys.path.append(os.path.dirname(os.path.dirname(__file__)))
 
 
 @app.route("/")

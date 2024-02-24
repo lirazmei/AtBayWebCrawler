@@ -2,7 +2,7 @@ import json
 import logging
 import os
 from .abstract_dao import AbstractDao
-from app.conf import STATUS_OPTIONS, DATA_PATH, METADATA_FILEPATH
+from conf import STATUS_OPTIONS, DATA_PATH, METADATA_FILEPATH
 
 logger = logging.getLogger(__name__)
 

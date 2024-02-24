@@ -6,10 +6,10 @@ import requests
 
 from concurrent.futures import ThreadPoolExecutor
 
-from app.conf import SLACK_API_TOKEN
-from app.utils import send_email, send_slack_message
-from app.models.file_system_dao import AbstractDao
-from app.conf import STATUS_OPTIONS
+from conf import SLACK_API_TOKEN
+from utils import send_email, send_slack_message
+from models.file_system_dao import AbstractDao
+from conf import STATUS_OPTIONS
 
 
 class CrawlerService(object):

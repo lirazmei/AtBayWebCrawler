@@ -59,7 +59,7 @@ gh repo clone lirazmei/AtBayWebCrawler
 ```bash
 cd /path/to/your/AtBayWebCrawler
 virtualenv --python=python3.9 venv
-source ./venv/bin/activate
+source .venv/bin/activate
 ```
 
 * Install required modules in virtualenv

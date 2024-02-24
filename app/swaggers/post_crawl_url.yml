@@ -31,7 +31,7 @@ definitions:
         type: string
     example:
       error: "Internal Server Error"
-  communication_details:
+  CommunicationDetails:
     type: object
     properties:
       email_address:
@@ -52,5 +52,5 @@ definitions:
         type: string
         example: "https://ksp.co.il/web/"
       communication_details:
-        $ref: '#/definitions/communication_details'
+        $ref: '#/definitions/CommunicationDetails'
 
