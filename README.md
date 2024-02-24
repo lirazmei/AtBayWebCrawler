@@ -71,13 +71,13 @@ pip install -r requirements.txt
 * Run the project
 
 ```bash
-.venv/bin/python app/main.py 
+.venv/bin/python app/main.py --max-workers <<wanted_number>>
 ```
 
 If you want to debug the project add "debug" arg to command line
 
 ```bash
-.venv/bin/python main.py debug
+.venv/bin/python app/main.py --debug --max-workers <<wanted_number>>
 ```
 
 ## HTTP Requests (GUI & curl )

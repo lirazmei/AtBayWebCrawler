@@ -1,6 +1,7 @@
 import os
 import sys
 import logging
+import argparse
 
 from flasgger import Swagger, swag_from
 from flask import Flask
@@ -42,10 +43,24 @@ def init_logger():
     root.addHandler(handler)
 
 
+def parser_initialization():
+    parser = argparse.ArgumentParser(description='Argument Parser with Debug and Max Workers Flags')
+    parser.add_argument('--debug', action='store_true', help='Enable debug mode')
+    parser.add_argument('--max-workers', type=int, default=1,
+                        help='Specify the maximum number of workers (default: 1)')
+    args = parser.parse_args()
+    if args.debug:
+        logger.info("Debug mode is enabled")
+    logger.info(f"Max workers is {args.max_workers}")
+    return args
+
+
 if __name__ == '__main__':
     init_logger()
+    logger = logging.getLogger(__name__)
+    app_args = parser_initialization()
     swagger = Swagger(app)
     fs_dao = FileSystemDao()
-    crawler_service = CrawlerService(fs_dao, max_workers=10)
+    crawler_service = CrawlerService(fs_dao, max_workers=app_args.max_workers)
     create_routes(app, crawler_controller=CrawlerController(crawler_service))
-    app.run(debug=IS_DEBUG, port=8000)
+    app.run(debug=app_args.debug, port=8000)
